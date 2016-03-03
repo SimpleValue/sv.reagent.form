@@ -8,6 +8,6 @@
 (defn date-picker [modifier]
   [DatePicker
    {:selected (when-let [date (modifier)]
-                (js/moment date))
+                (.utc js/moment date))
     :onChange (fn [moment-date]
                 (modifier (fn [_] (.toDate moment-date))))}])
