@@ -10,7 +10,7 @@
     {:value (b/get-value
              modifier
              (fn [val]
-               (str/join "," val)))
+               (str/join ", " val)))
      :onChange (b/bind-input-value modifier)
      :onBlur (b/bind-value
               modifier
