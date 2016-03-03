@@ -9,10 +9,7 @@
    (get-value modifier identity)))
 
 (defn extract-text-value [e]
-  (let [target (.-target e)]
-    (if (= (.-type target) "checkbox")
-      (.-checked target)
-      (.-value target))))
+  (.-value (.-target e)))
 
 (defn bind-input-value
   ([modifier f]
