@@ -10,8 +10,7 @@
   {:type "text"
    :id (str (:id field))
    :class "form-control"
-   :placeholder (str (or (:placeholder field)
-                         (name (:id field "<no id>"))))
+   :placeholder (:placeholder field)
    :title (:title field)})
 
 (defn text-input [modifier]
