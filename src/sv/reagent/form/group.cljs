@@ -5,8 +5,7 @@
     [:span.help-block error]))
 
 (defn form-group [val & content]
-  (let [value (:value val)
-        error (:error val)]
+  (let [error (:error val)]
     (apply
      conj
      [:div
