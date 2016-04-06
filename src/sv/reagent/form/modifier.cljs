@@ -22,3 +22,8 @@
 
 (defn read-merge [modifier map]
   (modify-read modifier merge map))
+
+(defn get-with [modifier key data]
+  (read-merge
+   (path modifier [key])
+   data))
