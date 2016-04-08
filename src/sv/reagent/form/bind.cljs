@@ -1,35 +1,36 @@
 (ns sv.reagent.form.bind)
 
 (defn get-value
-  ([modifier f]
-   (let [field (modifier)]
+  ([model f]
+   (let [field @model]
      (or (:input-value field)
          (f (:value field)))))
-  ([modifier]
-   (get-value modifier identity)))
+  ([model]
+   (get-value model identity)))
 
 (defn extract-text-value [e]
   (.-value (.-target e)))
 
 (defn bind-input-value
-  ([modifier f]
+  ([model f]
    (fn [e]
-     (modifier assoc :input-value (f (extract-text-value e)))))
-  ([modifier]
-   (bind-input-value modifier identity)))
+     (swap! model assoc :input-value (f (extract-text-value e)))))
+  ([model]
+   (bind-input-value model identity)))
 
 (defn bind-value
-  ([modifier f]
+  ([model f]
    (fn [e]
-     (modifier
+     (swap!
+      model
       (fn [val]
         (if-let [input-value (:input-value val)]
           (-> val
               (assoc :value (f input-value))
               (dissoc :input-value))
           val)))))
-  ([modifier]
-   (bind-value modifier identity)))
+  ([model]
+   (bind-value model identity)))
 
 (defn extract-entity [value keys]
   (let [keys (set keys)]

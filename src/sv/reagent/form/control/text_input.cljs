@@ -1,10 +1,10 @@
 (ns sv.reagent.form.control.text-input
   (:require [sv.reagent.form.bind :as b]))
 
-(defn text-input-binding [modifier]
-  {:value (b/get-value modifier)
-   :onChange (b/bind-input-value modifier)
-   :onBlur (b/bind-value modifier)})
+(defn text-input-binding [model]
+  {:value (b/get-value model)
+   :onChange (b/bind-input-value model)
+   :onBlur (b/bind-value model)})
 
 (defn text-input-attrs [field]
   {:type "text"
@@ -13,8 +13,8 @@
    :placeholder (:placeholder field)
    :title (:title field)})
 
-(defn text-input [modifier]
-  (let [field (modifier)]
+(defn text-input [model]
+  (let [field @model]
     [:input (merge
              (text-input-attrs field)
-             (text-input-binding modifier))]))
+             (text-input-binding model))]))
