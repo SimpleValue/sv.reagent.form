@@ -23,37 +23,39 @@
            :complete false}))))))
 
 (defn select-one-async
-  [{:keys [modifier get-options disabled onChange] :as opts}]
+  [{:keys [model get-options disabled onChange] :as opts}]
   [SelectAsync
    (merge
     {:multi false
      :disabled disabled
-     :value (:selected (modifier))
+     :value (:selected @model)
      :onChange (fn [selected]
                  (let [s (js->clj selected :keywordize-keys true)]
-                   (modifier
+                   (swap!
+                    model
                     assoc :selected s :value (:value s)))
                  (when onChange
                    (onChange selected)))
-     :placeholder (:placeholder (modifier))
+     :placeholder (:placeholder @model)
      :loadOptions (load-options-fn get-options)}
-    (dissoc opts :modifier :get-options :onChange))])
+    (dissoc opts :model :get-options :onChange))])
 
 (defn select-multi-async
-  [{:keys [modifier get-options disabled onChange] :as opts}]
+  [{:keys [model get-options disabled onChange] :as opts}]
   [SelectAsync
    (merge
     {:multi true
      :disabled disabled
-     :value (clj->js (:selected (modifier)))
+     :value (clj->js (:selected @model))
      :onChange (fn [selected]
                  (let [s (js->clj selected :keywordize-keys true)]
-                   (modifier
+                   (swap!
+                    model
                     assoc
                     :selected (distinct s)
                     :value (set (map :value s))))
                  (when onChange
                    (onChange selected)))
-     :placeholder (:placeholder (modifier))
+     :placeholder (:placeholder @model)
      :loadOptions (load-options-fn get-options)}
-    (dissoc opts :modifier :get-options :onChange))])
+    (dissoc opts :model :get-options :onChange))])
