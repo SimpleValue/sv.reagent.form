@@ -11,7 +11,8 @@
    :id (str (:id field))
    :class "form-control"
    :placeholder (:placeholder field)
-   :title (:title field)})
+   :title (:title field)
+   :disabled (:disabled field)})
 
 (defn text-input [model]
   (let [field @model]
