@@ -5,9 +5,9 @@
 
 (def DatePicker (r/adapt-react-class js/DatePicker))
 
-(defn date-picker [modifier]
+(defn date-picker [model]
   [DatePicker
-   {:selected (when-let [date (modifier)]
+   {:selected (when-let [date (:value @model)]
                 (.utc js/moment date))
     :onChange (fn [moment-date]
-                (modifier (fn [_] (.toDate moment-date))))}])
+                (swap! model assoc :value (.toDate moment-date)))}])
