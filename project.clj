@@ -1,4 +1,4 @@
-(defproject sv/reagent.form "0.2.0"
+(defproject sv/reagent.form "0.2.1-SNAPSHOT"
   :description "Some tools to build forms with reagent."
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
