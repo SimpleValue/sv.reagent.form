@@ -10,4 +10,9 @@
    {:selected (when-let [date (:value @model)]
                 (.utc js/moment date))
     :onChange (fn [moment-date]
-                (swap! model assoc :value (.toDate moment-date)))}])
+                (let [date (js/Date.
+                            (.UTC js/Date
+                                  (.year moment-date)
+                                  (.month moment-date)
+                                  (.date moment-date)))]
+                  (swap! model assoc :value date)))}])
