@@ -2,12 +2,12 @@
   (:require [sv.reagent.form.control.text-input :as t]
             [sv.reagent.form.bind :as b]))
 
-(defn checkbox [modifier]
-  (let [field (modifier)]
+(defn checkbox [model]
+  (let [m @model]
     [:input
-     {:id (str (:id field))
+     {:id (str (:id m))
       :type "checkbox"
-      :checked (:value field)
+      :defaultChecked (:value @model)
       :onChange (fn [e]
-                  (modifier assoc :value (.-checked (.-target e))))
-      :title (:title field)}]))
+                  (swap! model assoc :value (.-checked (.-target e))))
+      :title (:title m)}]))
